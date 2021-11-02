@@ -1,3 +1,4 @@
+<app-header></app-header>
 <section class="product-single theme3 pt-60">
   <div class="container">
       <div class="row">
@@ -8,7 +9,7 @@
               <div class="product-sync-init mb-20">
                   <div class="single-product">
                       <div class="product-thumb">
-                          <img width="650" src="http://placehold.it/650" alt="product-thumb">
+                          <img width="650" [src]="prefUrlImage+product.image" alt="product-thumb">
                       </div>
                   </div>
 
@@ -20,7 +21,7 @@
           <div class="col-lg-6 mt-5 mt-md-0">
               <div class="single-product-info">
                   <div class="single-product-head">
-                      <h2 class="title mb-20">Product name</h2>
+                      <h2 class="title mb-20">{{product.name}}</h2>
                       <div class="star-content mb-20">
                           <span class="star-on"><i class="ion-ios-star"></i> </span>
                           <span class="star-on"><i class="ion-ios-star"></i> </span>
@@ -32,8 +33,8 @@
                   </div>
                   <div class="product-body mb-40">
                       <div class="d-flex align-items-center mb-30">
-                          <h6 class="product-price mr-20"><del class="del">$30</del>
-                              <span class="onsale">$30</span></h6>
+                          <h6 class="product-price mr-20"><del class="del">€ {{ (product.price).toFixed(2) }} </del>
+                              <span class="onsale">€ {{product.price}}</span></h6>
                           <span class="badge position-static bg-dark rounded-0">Save 10%</span>
                       </div>
                       <p>Description : </p>
@@ -43,7 +44,7 @@
                       <div class="product-count style d-flex flex-column flex-sm-row mt-30 mb-30">
 
                           <div>
-                              <button class="btn theme-btn--dark3 btn--xl mt-5 mt-sm-0 rounded-5" data-toggle="modal" data-target="#add-to-cart">
+                              <button (click)="addCart(product)" class="btn theme-btn--dark3 btn--xl mt-5 mt-sm-0 rounded-5" data-toggle="modal" [attr.data-target]="'#add-to-cart-'+product.idProduct">
                                 <span class="mr-2"><i class="ion-android-add"></i></span>
                                 Add to cart
                             </button>
@@ -203,3 +204,4 @@
       </div>
   </div>
 </section>
+<app-modal-add-to-cart [products]="[product]"></app-modal-add-to-cart>

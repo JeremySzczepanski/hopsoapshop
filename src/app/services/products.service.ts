@@ -42,4 +42,12 @@ export class ProductsService {
     )
   }
 
+  getProductById(id: number): Products{
+    const product = this.products.find(element => element.idProduct == id);
+    if(product){
+      return product;
+    }
+    return null;
+  }
+
 }
