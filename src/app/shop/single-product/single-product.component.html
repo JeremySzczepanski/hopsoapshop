@@ -33,11 +33,11 @@
                   </div>
                   <div class="product-body mb-40">
                       <div class="d-flex align-items-center mb-30">
-                          <h6 class="product-price mr-20"><del class="del">€ {{ (product.price).toFixed(2) }} </del>
+                          <h6 class="product-price mr-20"><del class="del">€ {{ (product.price*1.1).toFixed(2) }} </del>
                               <span class="onsale">€ {{product.price}}</span></h6>
                           <span class="badge position-static bg-dark rounded-0">Save 10%</span>
                       </div>
-                      <p>Description : </p>
+                      <p>Description : {{product.description}}</p>
 
                   </div>
                   <div class="product-footer">
