@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Products } from 'src/app/model/products';
 import { CartService } from 'src/app/services/cart.service';
@@ -10,25 +10,23 @@ import { ProductsService } from '../../services/products.service';
   templateUrl: './products.component.html',
   styleUrls: ['./products.component.css']
 })
-export class ProductsComponent implements OnInit, OnDestroy {
+export class ProductsComponent implements OnInit {
 
   prodSub: Subscription;
   prefUrlImage = `${environment.prefUrlImage}`
-  products: Products[] = [];
+  @Input() products: Products[] = [];
+  @Input() isPaginate: boolean = true;
+  currentPage= 0;
+
+  pages = [0,1,2,3,4,5,6,7];
 
   constructor(private prodService: ProductsService, private cartService: CartService) { }
 
   ngOnInit(): void {
-    this.prodSub = this.prodService.prodSubject.subscribe(
-      (data)=>{
-        this.products = data; //on récupére les données et on les met dans "products"
-      }
-    )
+
   }
 
-  ngOnDestroy(): void {
-    this.prodSub.unsubscribe();
-  }
+
 
   addToCart(product: Products): void{
     this.cartService.addProductToCart(product);
@@ -37,6 +35,33 @@ export class ProductsComponent implements OnInit, OnDestroy {
   deleteFromCart(product: Products): void{
     this.cartService.deleteFromCart(product)
   }
+
+  changePage(pageNumber: number): void{
+    const prod = this.prodService.getProductByPage(pageNumber);
+    if(prod){
+      this.products = prod;
+      this.currentPage = pageNumber;
+    }
+  }
+
+  nextPage(): void{
+    const newCurrentPage = this.currentPage +1;
+    const prod = this.prodService.getProductByPage(newCurrentPage);
+    if(prod){
+      this.products = prod;
+      this.currentPage = newCurrentPage;
+    }
+  }
+
+  prevPage(): void{
+    const newCurrentPage = this.currentPage -1;
+    const prod = this.prodService.getProductByPage(newCurrentPage);
+    if(prod){
+      this.products = prod;
+      this.currentPage = newCurrentPage;
+    }
+  }
+
 
 
 }

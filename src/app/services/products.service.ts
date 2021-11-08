@@ -4,6 +4,7 @@ import { Subject } from 'rxjs';
 import { Result } from '../model/result';
 import { environment } from './../../environments/environment';
 import { Products } from '../model/products';
+import { ConvertPropertyBindingResult } from '@angular/compiler/src/compiler_util/expression_converter';
 
 
 @Injectable({
@@ -13,6 +14,8 @@ export class ProductsService {
 
   products: Products[] = [];
   prodSubject = new Subject<Products[]>()
+
+  numberOfProductByPage = 6;
 
   constructor(private http: HttpClient) {
     //lorsque l'on lance le service, on met à jour les données car products est par défaut un tableau vide
@@ -48,6 +51,16 @@ export class ProductsService {
       return product;
     }
     return null;
+  }
+
+  getProductByPage(pageNumber: number): Products[]{
+    const maxPageNumber = this.products.length/this.numberOfProductByPage;
+    if(pageNumber >0 || pageNumber< maxPageNumber){
+        const prodResult = this.products.slice(pageNumber*this.numberOfProductByPage, (pageNumber+1)*this.numberOfProductByPage)
+        return prodResult;
+    }
+    return null;
+
   }
 
 }

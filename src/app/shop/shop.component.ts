@@ -17,9 +17,10 @@ export class ShopComponent implements OnInit {
   ngOnInit(): void {
     this.prodSub = this.prodService.prodSubject.subscribe(
       (data)=>{
-        this.products = data; //on récupére les données et on les met dans "products"
+        this.products = this.prodService.getProductByPage(0);
       }
-    )
+    );
+    this.prodService.emitProducts();
   }
 
 }
