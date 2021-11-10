@@ -40,6 +40,7 @@ export class HeaderComponent implements OnInit {
 
   logout(){
     this.userService.logout();
+    this.isAuth = this.userService.isAuth; //une fois que le logout est fait coté service, on remet à jour le isAuth dans le header
   }
 
 
