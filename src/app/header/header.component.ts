@@ -5,6 +5,7 @@ import { Category } from '../model/category';
 import { Products } from '../model/products';
 import { CartService } from '../services/cart.service';
 import { CategoryService } from '../services/category.service';
+import { UsersService } from '../services/users.service';
 
 @Component({
   selector: 'app-header',
@@ -17,14 +18,17 @@ export class HeaderComponent implements OnInit {
   cartData;
   categories: Category[];
   categorySub: Subscription;
+  isAuth = false;
 
   constructor(private cartService: CartService,
-              private categoryService: CategoryService
+              private categoryService: CategoryService,
+              private userService: UsersService,
     ) { }
 
   ngOnInit(): void {
     this.cart = this.cartService.cart;
     this.cartData = this.cartService.cartData;
+    this.isAuth = this.userService.isAuth;
 
     this.categorySub = this.categoryService.categorySubject.subscribe(
       (data: Category[])=>{
@@ -34,7 +38,9 @@ export class HeaderComponent implements OnInit {
     this.categoryService.emitCategories();
   }
 
-
+  logout(){
+    this.userService.logout();
+  }
 
 
 }

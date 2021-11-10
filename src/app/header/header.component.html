@@ -119,8 +119,9 @@
                 </ul>
               </li>
               <li routerLinkActive="active"><a routerLink="/contact">Contact</a></li>
-              <li routerLinkActive="active"><a routerLink="/login">Login</a></li>
-              <li routerLinkActive="active"><a routerLink="/register">Register</a></li>
+              <li routerLinkActive="active" *ngIf="!isAuth"><a routerLink="/login">Login</a></li>
+              <li routerLinkActive="active" *ngIf="!isAuth"><a routerLink="/register">Register</a></li>
+              <li (click)="logout()" *ngIf="isAuth"><a>Logout</a></li>
 
             </ul>
           </div>
