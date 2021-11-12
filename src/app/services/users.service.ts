@@ -33,7 +33,7 @@ export class UsersService {
           this.emitUser();		                      // Comme la valeur de user: Users; change, on va emettre les données
           resolve(data.result);
            }else{				                            // Si autre code que 200 on affiche le message d'erreur dans la console.
-          console.log(data.result);
+          //console.log(data.result);
           reject(data.message);
            }
         },(error)=>{
@@ -58,8 +58,10 @@ export class UsersService {
 
             (data: Result)=>{
               if(data.status == 200){
-                  this.authentifier(newUser);
-                  resolve(data.result);
+                this.user = data.result;
+                this.isAuth = true;
+                this.emitUser();
+                resolve(data.result);
               }else{
                   reject(data.message);
               }
@@ -78,6 +80,8 @@ export class UsersService {
     this.isAuth = false;
     this.userSubject = new Subject<Users>();
   }
+
+
 
 
 
