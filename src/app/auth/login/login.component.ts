@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UsersService } from 'src/app/services/users.service';
 import { Users } from 'src/app/model/users';
 import { Router } from '@angular/router';
+import { CartService } from 'src/app/services/cart.service';
 
 @Component({
   selector: 'app-login',
@@ -17,6 +18,7 @@ export class LoginComponent implements OnInit {
   constructor(private userService: UsersService,
               private fb: FormBuilder,
               private router: Router,
+              private cartService: CartService,
               ) { }
 
   ngOnInit(): void {
@@ -37,7 +39,12 @@ export class LoginComponent implements OnInit {
 
     this.userService.authentifier(newUser).then(
       (data)=>{
-        this.router.navigate(['/shop'])
+        const cart = this.cartService.cart;
+        if(cart.length){
+          this.router.navigate(['/checkout']);
+        }else{
+          this.router.navigate(['/shop']);
+        }
       }
     ).catch((error)=>{
       this.errorMessage = error;

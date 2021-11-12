@@ -1,6 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
+import { RouterModule, Routes } from '@angular/router';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
@@ -14,12 +16,12 @@ import { ProductsComponent } from './shop/products/products.component';
 import { SingleProductComponent } from './shop/single-product/single-product.component';
 import { CartComponent } from './shop/cart/cart.component';
 import { NotFoundComponent } from './not-found/not-found.component';
-
-import { RouterModule, Routes } from '@angular/router';
+import { CheckoutComponent } from './shop/checkout/checkout.component';
 import { ModalAddToCartComponent } from './shop/modal-add-to-cart/modal-add-to-cart.component';
 import { ModalQuickViewComponent } from './shop/modal-quick-view/modal-quick-view.component';
 import { CategoryComponent } from './category/category.component';
-import { ReactiveFormsModule } from '@angular/forms';
+
+import { AuthGuard } from './services/auth.guard';
 
 
 const routes: Routes = [
@@ -29,6 +31,7 @@ const routes: Routes = [
   {path: 'single-product/:id', component: SingleProductComponent},
   {path: 'category/:id', component: CategoryComponent},
   {path: 'contact', component: ContactComponent},
+  {path: 'checkout',canActivate: [AuthGuard], component: CheckoutComponent},
   {path: 'login', component: LoginComponent},
   {path: 'register', component: RegisterComponent},
   {path: 'notFound', component: NotFoundComponent},
@@ -51,7 +54,8 @@ const routes: Routes = [
     CartComponent,
     ModalAddToCartComponent,
     ModalQuickViewComponent,
-    CategoryComponent
+    CategoryComponent,
+    CheckoutComponent
   ],
   imports: [
     BrowserModule,
