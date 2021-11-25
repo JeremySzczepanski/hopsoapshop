@@ -22,6 +22,8 @@ import { ModalQuickViewComponent } from './shop/modal-quick-view/modal-quick-vie
 import { CategoryComponent } from './category/category.component';
 
 import { AuthGuard } from './services/auth.guard';
+import { ButtonPaypalComponent } from './shop/button-paypal/button-paypal.component';
+import { NgxPayPalModule } from 'ngx-paypal';
 
 
 const routes: Routes = [
@@ -55,13 +57,16 @@ const routes: Routes = [
     ModalAddToCartComponent,
     ModalQuickViewComponent,
     CategoryComponent,
-    CheckoutComponent
+    CheckoutComponent,
+    ButtonPaypalComponent
   ],
   imports: [
     BrowserModule,
     RouterModule.forRoot(routes),
     HttpClientModule,
     ReactiveFormsModule,
+    NgxPayPalModule,
+
   ],
   providers: [],
   bootstrap: [AppComponent]

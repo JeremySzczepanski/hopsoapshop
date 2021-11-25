@@ -24,18 +24,4 @@ export class CheckoutComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  createOrder(){
-    const user = this.userService.user;
-    const cart = this.cartService.cart;
-
-    this.ordersService.createOrder(user,cart)
-    .then(() => {
-      console.log('commande créée avec succès !');
-    })
-
-    .catch((error) => {
-      console.log(error);
-    })
-  }
-
 }

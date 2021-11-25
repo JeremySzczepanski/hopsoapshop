@@ -50,7 +50,7 @@
                       </ul>
                   </li>
                   <li class="list-group-item text-center">
-                      <button (click)="createOrder()" class="btn btn-success btn-lg">Payer</button>
+                    <app-button-paypal [price]="(cartData.cost*1.21).toFixed(2)"></app-button-paypal>
                       <div id="paypal-button-container" class="">Proceed to checkout</div>
 
                   </li>
