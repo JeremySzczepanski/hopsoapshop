@@ -13,24 +13,24 @@ import { ConvertPropertyBindingResult } from '@angular/compiler/src/compiler_uti
 export class ProductsService {
 
   products: Products[] = [];
-  prodSubject = new Subject<Products[]>()
+  prodSubject = new Subject<Products[]>();
 
   numberOfProductByPage = 6;
 
   constructor(private http: HttpClient) {
-    //lorsque l'on lance le service, on met à jour les données car products est par défaut un tableau vide
+    //lorsqu'on lance le service, on met à jour les données car products est par défaut un tableau vide
     this.getProductsFromServer();
    }
 
 
   //Role: mettre dans l'observable this.products, on appelera cette méthode à chaque fois qu'il y aura des modifications sur le tableau products
-  emitProducts(){
+  emitProducts(): void{
     this.prodSubject.next(this.products);
   }
 
 
   //role: récuperer les données de products depuis l'api
-  getProductsFromServer(){
+  getProductsFromServer(): void{
     const url = `${environment.API+'products?'+environment.API_KEY}`;
 
     this.http.get(url).subscribe(

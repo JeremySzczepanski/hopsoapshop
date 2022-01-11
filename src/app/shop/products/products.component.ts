@@ -17,8 +17,7 @@ export class ProductsComponent implements OnInit {
   @Input() products: Products[] = [];
   @Input() isPaginate: boolean = true;
   currentPage= 0;
-
-  pages = [0,1,2,3,4,5,6,7];
+  pages = [0,1,2,3,4,5,6];
 
   constructor(private prodService: ProductsService, private cartService: CartService) { }
 
@@ -38,7 +37,7 @@ export class ProductsComponent implements OnInit {
 
   changePage(pageNumber: number): void{
     const prod = this.prodService.getProductByPage(pageNumber);
-    if(prod){
+    if(prod.length){
       this.products = prod;
       this.currentPage = pageNumber;
     }
@@ -47,7 +46,7 @@ export class ProductsComponent implements OnInit {
   nextPage(): void{
     const newCurrentPage = this.currentPage +1;
     const prod = this.prodService.getProductByPage(newCurrentPage);
-    if(prod){
+    if(prod.length){
       this.products = prod;
       this.currentPage = newCurrentPage;
     }
@@ -56,7 +55,7 @@ export class ProductsComponent implements OnInit {
   prevPage(): void{
     const newCurrentPage = this.currentPage -1;
     const prod = this.prodService.getProductByPage(newCurrentPage);
-    if(prod){
+    if(prod.length){
       this.products = prod;
       this.currentPage = newCurrentPage;
     }
